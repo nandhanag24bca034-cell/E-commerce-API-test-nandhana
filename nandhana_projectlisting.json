@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "93453870-d029-4ed1-a8ec-71f0a8c56909",
+		"name": "nandhana_projectlisting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50274990",
+		"_collection_link": "https://nandhanag24bca034-5934240.postman.co/workspace/Nandhana's-Workspace~efc7951a-ec3b-412c-8a72-a023c08cec7d/collection/50274990-93453870-d029-4ed1-a8ec-71f0a8c56909?action=share&source=collection_link&creator=50274990"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code verify\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"status message verify\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"status code below verify\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.be.above(199);\r",
+							"})\r",
+							"pm.test(\"verify response time\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(9000)\r",
+							"})\r",
+							"pm.expect(\"verify response time\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.above(0);\r",
+							"\r",
+							"})\r",
+							"pm.test(\"check Multiple headers\",function()\r",
+							"{\r",
+							"    data=[\"content-Length\",\"content-Type\",\"Date\"];\r",
+							"    data.forEach( h=>\r",
+							"    {\r",
+							"        pm.response.to.have.header(h);\r",
+							"\r",
+							"    })\r",
+							"});\r",
+							"pm.test(\"Test status code using if-else\",function()\r",
+							"{\r",
+							"    let data=pm.response.code;\r",
+							"    if(data===200)\r",
+							"    {\r",
+							"        pm.response.to.have.status(\"OK\");\r",
+							"    }\r",
+							"    else\r",
+							"    {\r",
+							"        pm.expect(data).to.eql(\"Not Found\");\r",
+							"\r",
+							"    }\r",
+							"});\r",
+							"pm.test(\"status code is not in oneof function \",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.not.oneOf([201,202,203,204,205,206,207]);\r",
+							"\r",
+							"})\r",
+							"pm.test(\"content-Length value check\",function()\r",
+							"{\r",
+							"    let data=pm.response.headers.get(\"Content-Length\");\r",
+							"    pm.expect(Number(data)).to.be.above(0);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Length\",function()\r",
+							"{\r",
+							"    let data=pm.response.headers.get(\"Content-Length\");\r",
+							"    pm.expect(Number(data)).to.be.below(10000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response exist or not\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.text()).to.not.be.empty;\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response exists or not\", function()\r",
+							" {\r",
+							"    pm.expect(pm.response.text()).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify property exists\", function()\r",
+							" {\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"ProductName\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify value of the property exists\", function()\r",
+							" {\r",
+							"    pm.expect(Number(pm.response.json().Price)).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify value datatype\", function()\r",
+							" {\r",
+							"    pm.expect(pm.response.json().Price).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Product price value below range check\", function()\r",
+							" {\r",
+							"    pm.expect(Number(pm.response.json().Price)).to.be.below(5000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response time\", function() \r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response time above\", function()\r",
+							" {\r",
+							"    pm.expect(pm.response.responseTime).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check multiple headers\", function()\r",
+							" {\r",
+							"    const headers = [\"content-length\", \"content-type\", \"date\"];\r",
+							"    headers.forEach(h => {\r",
+							"        pm.response.to.have.header(h);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test status code using if-else\", function()\r",
+							" {\r",
+							"    const data=pm.response.code;\r",
+							"    if (data === 200) {\r",
+							"        pm.response.to.have.status(\"OK\");\r",
+							"    } else\r",
+							"    {\r",
+							"        pm.expect(data).to.not.eql(200);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is not in oneOf function\", function()\r",
+							" {\r",
+							"    pm.expect(pm.response.code).to.not.oneOf([400,401,402,403,404]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"id\",pm.response.json().id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"ProductName\": \"Cheese\",\r\n        \"Price\": \"333.49\",\r\n        \"Stock\": false\r\n      \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getbyid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code verify\",function()",
+							"{",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"pm.test(\"status code verify\",function()",
+							"{",
+							"    pm.response.to.have.status(\"OK\");",
+							"})",
+							"pm.test(\"status code in range\",function()",
+							"{",
+							"    pm.expect(pm.response.code).to.be.within(200,404);",
+							"})",
+							"pm.test(\"range of the status code verify\",function()",
+							"{",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,202,205,404]);",
+							"})",
+							"pm.test(\"status code below verify\",function()",
+							"{",
+							"    pm.expect(pm.response.code).to.be.below(500);",
+							"})",
+							"pm.test(\"status code above verify\",function()",
+							"{",
+							"    pm.expect(pm.response.code).to.be.above(199);",
+							"})",
+							"pm.test(\"verify responsetime\",function()",
+							"{",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);",
+							"})",
+							"pm.test(\"verify responsetime\",function()",
+							"{",
+							"    pm.expect(pm.response.responseTime).to.be.above(0);",
+							"})",
+							"pm.test(\"check content type header is present\",function()",
+							"{",
+							"    pm.response.to.have.header(\"content-type\");",
+							"})",
+							"pm.test(\"check value of content-type\",function()",
+							"{",
+							"    pm.expect(pm.response.headers.get(\"content-type\")).to.eql(\"application/json\");",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Products/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Products",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code verify\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"pm.test(\"status code verify\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"})\r",
+							"pm.test(\"status code in range\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.be.within(200,404);\r",
+							"})\r",
+							"pm.test(\"range of the status code verify\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,202,205]);\r",
+							"})\r",
+							"pm.test(\"status code below verify\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.be.below(201);\r",
+							"})\r",
+							"pm.test(\"status code above verify\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.be.above(199);\r",
+							"})\r",
+							"pm.test(\"verify responsetime\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(9000);\r",
+							"})\r",
+							"pm.test(\"verify responsetime\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.above(300);\r",
+							"})\r",
+							"pm.test(\"check content type header is present\",function()\r",
+							"{\r",
+							"    pm.response.to.have.header(\"content-type\");\r",
+							"})\r",
+							"pm.test(\"check value of content-type\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.headers.get(\"content-type\")).to.eql(\"application/json\");\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ProductName\": \"suriya\",\n    \"Price\": \"33.43\",\n    \"Stock\": false,\n    \"id\": {{id}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Products/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Products",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code verify\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"status message verify\",function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"status code below verify\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.be.above(199);\r",
+							"})\r",
+							"pm.test(\"verify response time\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(9000)\r",
+							"})\r",
+							"pm.expect(\"verify response time\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.above(0);\r",
+							"\r",
+							"})\r",
+							"pm.test(\"check Multiple headers\",function()\r",
+							"{\r",
+							"    data=[\"content-Length\",\"content-Type\",\"Date\"];\r",
+							"    data.forEach( h=>\r",
+							"    {\r",
+							"        pm.response.to.have.header(h);\r",
+							"\r",
+							"    })\r",
+							"});\r",
+							"pm.test(\"Test status code using if-else\",function()\r",
+							"{\r",
+							"    let data=pm.response.code;\r",
+							"    if(data===200)\r",
+							"    {\r",
+							"        pm.expect(data).to.eql(200);\r",
+							"    }\r",
+							"    else\r",
+							"    {\r",
+							"        pm.expect(data).to.eql(404);\r",
+							"\r",
+							"    }\r",
+							"});\r",
+							"pm.test(\"status code is not in oneof function \",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.code).to.not.oneOf([201,202,203,204,205,206,207]);\r",
+							"\r",
+							"})\r",
+							"pm.test(\"content-Length value check\",function()\r",
+							"{\r",
+							"    let data=pm.response.headers.get(\"Content-Length\");\r",
+							"    pm.expect(Number(data)).to.be.above(0);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Length\",function()\r",
+							"{\r",
+							"    let data=pm.response.headers.get(\"Content-Length\");\r",
+							"    pm.expect(Number(data)).to.be.below(8000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response exist or not\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.text()).to.not.be.empty;\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://69218722512fb4140be07da6.mockapi.io/Products/{{id}}",
+					"protocol": "https",
+					"host": [
+						"69218722512fb4140be07da6",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"Products",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://69218722512fb4140be07da6.mockapi.io"
+		}
+	]
+}
